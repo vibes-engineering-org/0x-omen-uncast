@@ -26,7 +26,7 @@ export default async function Image() {
           overflow: "hidden",
         }}
       >
-        {/* Background gradient with Farcaster purple and electric blue */}
+        {/* Background gradient with purple and teal for thread/unrolling theme */}
         <div
           style={{
             position: "absolute",
@@ -34,7 +34,7 @@ export default async function Image() {
             left: 0,
             right: 0,
             bottom: 0,
-            background: "linear-gradient(135deg, #8A63D2 0%, #1E90FF 100%)",
+            background: "linear-gradient(135deg, #6366f1 0%, #06b6d4 100%)",
             opacity: 0.9,
           }}
         />
@@ -48,7 +48,7 @@ export default async function Image() {
             right: 0,
             bottom: 0,
             backgroundImage:
-              "radial-gradient(circle at 20% 80%, rgba(138, 99, 210, 0.4) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(30, 144, 255, 0.4) 0%, transparent 50%)",
+              "radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.4) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.4) 0%, transparent 50%)",
           }}
         />
 
@@ -155,7 +155,7 @@ export default async function Image() {
             {PROJECT_DESCRIPTION}
           </p>
 
-          {/* Farcaster branding element */}
+          {/* Thread visualization element */}
           <div
             style={{
               display: "flex",
@@ -163,12 +163,55 @@ export default async function Image() {
               gap: "16px",
               padding: "20px 40px",
               backgroundColor: "rgba(255, 255, 255, 0.2)",
-              borderRadius: "100px",
+              borderRadius: "16px",
               border: "3px solid rgba(255, 255, 255, 0.4)",
               backdropFilter: "blur(10px)",
               boxShadow: "0 8px 32px rgba(0, 0, 0, 0.2)",
+              position: "relative",
             }}
           >
+            {/* Thread lines visual */}
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "4px",
+                opacity: 0.8,
+              }}
+            >
+              <div
+                style={{
+                  width: "32px",
+                  height: "3px",
+                  backgroundColor: "#ffffff",
+                  borderRadius: "2px",
+                }}
+              />
+              <div
+                style={{
+                  width: "40px",
+                  height: "3px",
+                  backgroundColor: "#ffffff",
+                  borderRadius: "2px",
+                }}
+              />
+              <div
+                style={{
+                  width: "36px",
+                  height: "3px",
+                  backgroundColor: "#ffffff",
+                  borderRadius: "2px",
+                }}
+              />
+              <div
+                style={{
+                  width: "44px",
+                  height: "3px",
+                  backgroundColor: "#ffffff",
+                  borderRadius: "2px",
+                }}
+              />
+            </div>
             {/* Farcaster icon */}
             <svg
               width="32"
@@ -194,7 +237,7 @@ export default async function Image() {
                 letterSpacing: "-0.5px",
               }}
             >
-              Farcaster Mini App
+              Thread Unroller
             </span>
           </div>
         </div>
