@@ -65,7 +65,7 @@ export function Uncast() {
         <div className="text-center space-y-2">
           <h1 className="text-2xl font-bold">Uncast</h1>
           <p className="text-muted-foreground">
-            Unroll and read Farcaster threads with bookmarking and pagination
+            Easily read Farcaster threads
           </p>
         </div>
         
