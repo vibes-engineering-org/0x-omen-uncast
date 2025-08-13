@@ -7,24 +7,22 @@ export async function GET() {
 
   const config = {
     accountAssociation: {
-      header:
-        "eyJmaWQiOjEzNTk2LCJ0eXBlIjoiY3VzdG9keSIsImtleSI6IjB4ODE3MzE4RDZmRkY2NkExOGQ4M0ExMzc2QTc2RjZlMzBCNDNjODg4OSJ9",
-      payload:
-        "eyJkb21haW4iOiJmYXJjYXN0ZXItbWluaWFwcC10ZW1wbGF0ZS52ZXJjZWwuYXBwIn0",
-      signature:
-        "MHg5ZjkyZTdkNjRmZTNhNTE4YTEzOTBmZTdlYzAwOWQzODUzZWM2N2RmOTZiYjg1MzAwOGRlZDExNjVmOGE5OGVlNDQyYmI0MDU3OTI0ZmEzOGE3N2NlYWRiYThiMTRiN2IzMTY5N2ZjYWVlZGM3MTE1YWNiMTFmYjc2Y2EzYTc0YzFj",
+      header: "eyJmaWQiOjg2OTk5OSwidHlwZSI6ImN1c3RvZHkiLCJrZXkiOiIweDc2ZDUwQjBFMTQ3OWE5QmEyYkQ5MzVGMUU5YTI3QzBjNjQ5QzhDMTIifQ",
+      payload: "eyJkb21haW4iOiIweC1vbWVuLXVuY2FzdC52ZXJjZWwuYXBwIn0",
+      signature: "MHg2NGE5NGM4M2M5YjE1MzIyNWZiM2U3NzA3YTE2NmMwNDBhNDQ5NmM0OGQ2M2VlMDQwOWU3NDAzYTJmNzQ2MWY0NDhiYjRjNTg2NGUzZjZmMWUwMzk5NWVhMTJhOWEwMGI2OGM2NTQ0MWNkNTYzYjAwY2Q4YjY3NTAxZWQ1NmU5NTFj",
     },
     frame: {
       version: "1",
       name: PROJECT_TITLE,
       iconUrl: `${appUrl}/icon.png`,
       homeUrl: appUrl,
-      imageUrl: `${appUrl}/frames/hello/opengraph-image`,
-      ogImageUrl: `${appUrl}/frames/hello/opengraph-image`,
+      imageUrl: `${appUrl}/og.png`,
       buttonTitle: "Open",
-      splashImageUrl: `${appUrl}/splash.png`,
-      splashBackgroundColor: "#f7f7f7",
       webhookUrl: `${appUrl}/api/webhook`,
+      splashImageUrl: `${appUrl}/splash.png`,
+      splashBackgroundColor: "#555555",
+      primaryCategory: "social",
+      tags: ["farcaster", "threads", "unroll", "casts", "social"],
     },
   };
 
