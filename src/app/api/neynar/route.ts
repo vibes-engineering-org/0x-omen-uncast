@@ -9,14 +9,19 @@ export async function GET(request: NextRequest) {
   const type = searchParams.get("type");
   const limit = searchParams.get("limit") || "50";
 
+  console.log("Neynar API request:", { action, identifier, type, limit });
+
   const apiKey = process.env.NEYNAR_API_KEY;
   if (!apiKey) {
     console.error("NEYNAR_API_KEY not found in environment variables");
+    console.error("Available env vars:", Object.keys(process.env).filter(k => k.includes('NEYNAR')));
     return NextResponse.json(
       { error: "Neynar API key is required. Please check your environment configuration." },
       { status: 500 }
     );
   }
+  
+  console.log("Using NEYNAR_API_KEY:", apiKey?.slice(0, 8) + "...");
 
   try {
     let url: string;
@@ -32,15 +37,25 @@ export async function GET(request: NextRequest) {
       );
     }
 
+    console.log("Neynar API URL:", url);
+
     const response = await fetch(url, {
       headers: {
+        'accept': 'application/json',
         'api_key': apiKey,
       },
     });
 
     if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Neynar API error:", {
+        status: response.status,
+        statusText: response.statusText,
+        url: url,
+        errorText: errorText
+      });
       return NextResponse.json(
-        { error: `Neynar API error: ${response.statusText}` },
+        { error: `Neynar API Error: ${response.statusText}`, details: errorText },
         { status: response.status }
       );
     }

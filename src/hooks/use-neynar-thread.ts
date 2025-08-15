@@ -81,24 +81,27 @@ function extractCastHashFromUrl(url: string): string | null {
   // Handle various Farcaster cast URL formats
   const patterns = [
     // farcaster.xyz format: https://farcaster.xyz/username/0xhash
-    /farcaster\.xyz\/[^\/]+\/0x([a-f0-9]{8,})$/i,
+    /farcaster\.xyz\/[^\/]+\/0x([a-f0-9]{8,})(?:\/.*)?$/i,
     // warpcast.com format: https://warpcast.com/username/0xhash
-    /warpcast\.com\/[^\/]+\/0x([a-f0-9]{8,})/i,
+    /warpcast\.com\/[^\/]+\/0x([a-f0-9]{8,})(?:\/.*)?$/i,
     // Direct hash (40 characters)
     /\/([a-f0-9]{40})$/i,
     // /cast/hash format
     /\/cast\/([a-f0-9]{40})/i,
     // 0x prefixed hash (flexible length, minimum 8)
-    /0x([a-f0-9]{8,})/i,
+    /0x([a-f0-9]{8,})(?:\/.*)?$/i,
   ];
   
   for (const pattern of patterns) {
     const match = url.match(pattern);
     if (match) {
-      return match[1];
+      const hash = match[1];
+      console.log(`Extracted hash: ${hash} from URL: ${url}`);
+      return hash;
     }
   }
   
+  console.error(`Failed to extract hash from URL: ${url}`);
   return null;
 }
 
