@@ -9,9 +9,11 @@ export async function GET(request: NextRequest) {
   const type = searchParams.get("type");
   const limit = searchParams.get("limit") || "50";
 
-  if (!process.env.NEYNAR_API_KEY) {
+  const apiKey = process.env.NEYNAR_API_KEY;
+  if (!apiKey) {
+    console.error("NEYNAR_API_KEY not found in environment variables");
     return NextResponse.json(
-      { error: "Neynar API key is required" },
+      { error: "Neynar API key is required. Please check your environment configuration." },
       { status: 500 }
     );
   }
@@ -32,7 +34,7 @@ export async function GET(request: NextRequest) {
 
     const response = await fetch(url, {
       headers: {
-        'api_key': process.env.NEYNAR_API_KEY,
+        'api_key': apiKey,
       },
     });
 

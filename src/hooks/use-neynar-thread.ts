@@ -80,9 +80,16 @@ const NEYNAR_API_URL = "/api/neynar";
 function extractCastHashFromUrl(url: string): string | null {
   // Handle various Farcaster cast URL formats
   const patterns = [
-    /\/([a-f0-9]{40})$/i, // Direct hash
-    /\/cast\/([a-f0-9]{40})/i, // /cast/hash format
-    /0x([a-f0-9]{40})/i, // 0x prefixed hash
+    // farcaster.xyz format: https://farcaster.xyz/username/0xhash
+    /farcaster\.xyz\/[^\/]+\/0x([a-f0-9]{8,})$/i,
+    // warpcast.com format: https://warpcast.com/username/0xhash
+    /warpcast\.com\/[^\/]+\/0x([a-f0-9]{8,})/i,
+    // Direct hash (40 characters)
+    /\/([a-f0-9]{40})$/i,
+    // /cast/hash format
+    /\/cast\/([a-f0-9]{40})/i,
+    // 0x prefixed hash (flexible length, minimum 8)
+    /0x([a-f0-9]{8,})/i,
   ];
   
   for (const pattern of patterns) {
