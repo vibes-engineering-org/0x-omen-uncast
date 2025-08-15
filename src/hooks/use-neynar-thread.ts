@@ -75,8 +75,7 @@ interface NeynarThreadResponse {
   };
 }
 
-const NEYNAR_API_URL = "https://api.neynar.com/v2/farcaster";
-const NEYNAR_API_KEY = process.env.NEXT_PUBLIC_NEYNAR_API_KEY || process.env.NEYNAR_API_KEY;
+const NEYNAR_API_URL = "/api/neynar";
 
 function extractCastHashFromUrl(url: string): string | null {
   // Handle various Farcaster cast URL formats
@@ -158,10 +157,6 @@ export function useNeynarThread() {
   const [error, setError] = useState<string | null>(null);
 
   const fetchThread = useCallback(async (castUrl: string, limit = 50): Promise<UnrolledThread | null> => {
-    if (!NEYNAR_API_KEY) {
-      throw new Error("Neynar API key is required");
-    }
-
     const castHash = extractCastHashFromUrl(castUrl);
     if (!castHash) {
       throw new Error("Invalid cast URL format");
@@ -172,14 +167,11 @@ export function useNeynarThread() {
 
     try {
       // First, get the root cast
-      const castResponse = await fetch(`${NEYNAR_API_URL}/cast?identifier=${castHash}&type=hash`, {
-        headers: {
-          'api_key': NEYNAR_API_KEY,
-        },
-      });
+      const castResponse = await fetch(`${NEYNAR_API_URL}?action=cast&identifier=${castHash}&type=hash`);
 
       if (!castResponse.ok) {
-        throw new Error(`Failed to fetch cast: ${castResponse.statusText}`);
+        const errorData = await castResponse.json();
+        throw new Error(errorData.error || `Failed to fetch cast: ${castResponse.statusText}`);
       }
 
       const castData = await castResponse.json();
@@ -187,16 +179,12 @@ export function useNeynarThread() {
 
       // Then get the conversation thread
       const threadResponse = await fetch(
-        `${NEYNAR_API_URL}/cast/conversation?identifier=${castHash}&type=hash&reply_depth=10&include_chronological_parent_casts=true&limit=${limit}`,
-        {
-          headers: {
-            'api_key': NEYNAR_API_KEY,
-          },
-        }
+        `${NEYNAR_API_URL}?action=conversation&identifier=${castHash}&type=hash&limit=${limit}`
       );
 
       if (!threadResponse.ok) {
-        throw new Error(`Failed to fetch thread: ${threadResponse.statusText}`);
+        const errorData = await threadResponse.json();
+        throw new Error(errorData.error || `Failed to fetch thread: ${threadResponse.statusText}`);
       }
 
       const threadData: NeynarThreadResponse = await threadResponse.json();
